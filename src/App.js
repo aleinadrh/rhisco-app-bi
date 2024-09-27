@@ -1,17 +1,20 @@
 import React, { Fragment } from 'react';
 import AppAnalista from './AppAnalista';
 import AppDirectivo from './AppDirectivo';
+import Navigation from './General/Navigation/Navigation';
+
 import './App.css';
 import './Graficos/Return/FilterReturn.css'
-import './General/Navigation/NavGraph.css'
-import './General/Navigation/NavTable.css'
+import './General/Navigation/NavGraphTable.css'
+import './General/Navigation/Navigation.css'
 import './Graficos/Sector/Sector.css';
 import './Graficos/Asset_Allocation/AssetAllocation.css'
+import '../src/AppDirectivo.css'
+
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
 
 
@@ -20,18 +23,15 @@ function App() {
   return (
     <Fragment>
       <Router>
-        <Link to = '/analista'>
-        <button>Analista</button>
-        </Link>
-        <Link to = '/directivo'>
-        <button>Directivo</button>
-        </Link>
         <Switch>
-          <Route path = '/directivo'>
+          <Route path = '/executive'>
             <AppDirectivo/>
           </Route>
-          <Route path = '/analista'>
+          <Route path = '/analyst'>
             <AppAnalista/>
+          </Route>
+          <Route path = '/' exact>
+            <Navigation/>
           </Route>
         </Switch>
       </Router>

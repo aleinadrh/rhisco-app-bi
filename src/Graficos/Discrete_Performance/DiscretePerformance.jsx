@@ -7,67 +7,66 @@ const DiscretePerformance = () => {
 
     const [Aegon,SetAegon] = useState([]);
     const [PNSpecialis, SetPNSpecialis] = useState([]);
-    const [DPData, SetDPData] = useState([]);
     const [Benchmark,SetBenchmark] = useState([]);
-
-    console.log(DPData)
-    console.log(Aegon)
-    console.log(PNSpecialis)
-    console.log(Benchmark)
-    
+  
     const data = {
+
       labels: Benchmark,
       datasets: [{
-        label: 'Aegon Stability Pn AORt',
-        data: Aegon,
-        fill: false,
-        borderColor: '#004E4E',
-        tension: 0.1
-      },
-      {
-        label: 'PN Specialist',
-        data: PNSpecialis,
-        fill: false,
-        borderColor: '#EF5D02',
-        tension: 0.1
-      }
-    ],
+
+          label: 'Aegon Stability Pn AORt',
+          data: Aegon,
+          fill: false,
+          borderColor: '#004E4E',
+          tension: 0.1
+        },
+        {
+          label: 'PN Specialist',
+          data: PNSpecialis,
+          fill: false,
+          borderColor: '#EF5D02',
+          tension: 0.1
+        }
+      ],
     };
 
     const getData = async () =>{
+
         await axios.get('https://rhisco-89b36-default-rtdb-2d767.firebaseio.com/.json')
         .then(response =>{
+
           let res = response.data;
-          const pnSpecialist = []
-          const aegonStability = []
-          const benchmark = []
+          const pnSpecialist = [];
+          const aegonStability = [];
+          const benchmark = [];
 
           res.map((data) => {
+
             pnSpecialist.push(data.PN_Specialist);
             aegonStability.push(data.Aegon_Stability_Pn_AOR);
             benchmark.push(data.Benchmark);
-          })
 
-          SetDPData(res)
-          SetPNSpecialis(pnSpecialist)
-          SetAegon(aegonStability)
-          SetBenchmark(benchmark)
-        })
-    }
+          });
+          
+          SetPNSpecialis(pnSpecialist);
+          SetAegon(aegonStability);
+          SetBenchmark(benchmark);
+        });
+    };
       useEffect(()=>{
         getData();
-      },[])
+      },[]);
 
     return ( 
 
         <Fragment>
-          <div className='graphic'>
+          <div className='graphicDP' style={{width:"100%"}}>
             <Line 
               data = {data}
             />
           </div>
         </Fragment>
     );
-}
+};
  
 export default DiscretePerformance;
